@@ -6,8 +6,25 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductImage;
 
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Validator;
+
 class ProductController extends Controller
 {
+    protected $user;
+
+    public function __construct()
+    {
+        $this->user = JWTAuth::parseToken()->authenticate();
+    }
+
+    public function index()
+    {        
+        return response()->json(['user' => $this->user]);
+    }
+
     public function getDetail(Request $request, $id)
     {
         $product = Product::find($id);
