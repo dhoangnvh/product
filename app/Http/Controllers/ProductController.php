@@ -13,17 +13,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    protected $user;
-
-    public function __construct()
-    {
-        $this->user = JWTAuth::parseToken()->authenticate();
-    }
-
-    public function index()
-    {        
-        return response()->json(['user' => $this->user]);
-    }
 
     public function getDetail(Request $request, $id)
     {

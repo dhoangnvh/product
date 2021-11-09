@@ -19,14 +19,15 @@ Route::get('product/search', [App\Http\Controllers\ProductController::class, 'se
 Route::get('product/get/{season}/{limit?}/{page?}', [App\Http\Controllers\ProductController::class, 'getProductBySeason']);
 
 Route::post('login', [App\Http\Controllers\ApiController::class, 'authenticate']);
+Route::post('register', [App\Http\Controllers\ApiController::class, 'register']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('logout', [App\Http\Controllers\ApiController::class, 'logout']);
     Route::get('get_user', [App\Http\Controllers\ApiController::class, 'get_user']);
 
-    Route::get('products', [App\Http\Controllers\ProductController::class, 'index']);
+    // Route::get('products', [App\Http\Controllers\ProductController::class, 'index']);
     // Route::get('products/{id}', [App\Http\Controllers\ProductController::class, 'show']);
-    // Route::post('create', [App\Http\Controllers\ProductController::class, 'store']);
-    // Route::put('update/{product}',  [App\Http\Controllers\ProductController::class, 'update']);
-    // Route::delete('delete/{product}',  [App\Http\Controllers\ProductController::class, 'destroy']);
+    Route::post('products/create', [App\Http\Controllers\LoggedinController::class, 'store']);
+    Route::put('products/update/{id}',  [App\Http\Controllers\LoggedinController::class, 'update']);
+    Route::delete('products/delete/{id}',  [App\Http\Controllers\LoggedinController::class, 'destroy']);
 });
